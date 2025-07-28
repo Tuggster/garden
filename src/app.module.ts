@@ -5,9 +5,10 @@ import { PrismaService } from './domain/prisma/prisma.service';
 import { ProjectModule } from './domain/project/project.module';
 import { ApiKeyModule } from './domain/api-key/api-key.module';
 import { DeviceModule } from './domain/device/device.module';
+import { SchemaValidationModule } from './schema-validation/schema-validation.module';
 
 @Module({
-  imports: [ProjectModule, ApiKeyModule, DeviceModule],
+  imports: [ProjectModule, ApiKeyModule, DeviceModule, SchemaValidationModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
