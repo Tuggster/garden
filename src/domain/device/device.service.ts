@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateDevicePayload, SensorPayload } from './types';
+import { CreateDevicePayload } from './types';
 
 @Injectable()
 export class DeviceService {
