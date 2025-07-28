@@ -22,6 +22,8 @@ model project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  devices device[]
+
   @@index([id])
 }
 
@@ -40,3 +42,33 @@ enum api_key_level {
 }
 
 // Devices
+
+model device {
+  project   project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  id      String   @id @unique @default(uuid())
+  sensors sensor[]
+}
+
+model sensor {
+  parentDevice     device @relation(fields: [parentDeviceId], references: [id])
+  parentDeviceId   String
+  readingSchemaUrl String
+
+  id            String @id @unique @default(uuid()) @db.Uuid
+  info          Json
+  infoSchemaUrl String
+
+  @@index([parentDeviceId])
+}
+
+model reading {
+  id       String @id @unique @default(uuid()) @db.Uuid
+  sensorId String @db.Uuid
+
+  data      Json
+  timestamp DateTime @default(now())
+
+  @@index([sensorId])
+}
