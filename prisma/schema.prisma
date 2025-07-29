@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,15 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Projects
-
 model project {
   id        String   @id @unique @default(uuid())
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  devices device[]
+  devices   device[]
 
   @@index([id])
 }
@@ -35,40 +25,35 @@ model api_key {
   @@index([id, projectId])
 }
 
-enum api_key_level {
-  READ
-  WRITE
-  MANAGE
-}
-
-// Devices
-
 model device {
-  project   project @relation(fields: [projectId], references: [id])
   projectId String
-
-  id      String   @id @unique @default(uuid())
-  sensors sensor[]
+  id        String   @id @unique @default(uuid())
+  project   project  @relation(fields: [projectId], references: [id])
+  sensors   sensor[]
 }
 
 model sensor {
-  parentDevice     device @relation(fields: [parentDeviceId], references: [id])
   parentDeviceId   String
   readingSchemaUrl String
-
-  id            String @id @unique @default(uuid()) @db.Uuid
-  info          Json?
-  infoSchemaUrl String?
+  id               String  @id @unique @default(uuid()) @db.Uuid
+  info             Json?
+  infoSchemaUrl    String?
+  parentDevice     device  @relation(fields: [parentDeviceId], references: [id])
 
   @@index([parentDeviceId])
 }
 
 model reading {
-  id       String @id @unique @default(uuid()) @db.Uuid
-  sensorId String @db.Uuid
-
+  id        String   @id @unique @default(uuid()) @db.Uuid
+  sensorId  String   @db.Uuid
   data      Json
   timestamp DateTime @default(now())
 
   @@index([sensorId])
+}
+
+enum api_key_level {
+  READ
+  WRITE
+  MANAGE
 }

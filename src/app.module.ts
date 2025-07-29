@@ -7,6 +7,7 @@ import { ApiKeyModule } from './domain/api-key/api-key.module';
 import { DeviceModule } from './domain/device/device.module';
 import { SchemaValidationModule } from './domain/schema-validation/schema-validation.module';
 import { SensorModule } from './domain/sensor/sensor.module';
+import { HealthModule } from './domain/health/health.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { SensorModule } from './domain/sensor/sensor.module';
     DeviceModule,
     SchemaValidationModule,
     SensorModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
