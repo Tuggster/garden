@@ -27,6 +27,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: arn:aws:iam::115467518862:role/arn:aws:iam::115467518862:role/actions-push-gh-garden
+          role-session-name: github-actions-session
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
