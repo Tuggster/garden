@@ -1,3 +1,34 @@
-    node_modules
-    .git
-    npm-debug.log
+# Dependency directories (handled by Dockerfile)
+node_modules/
+.npm/
+.pnpm/
+.yarn/
+
+# Build outputs
+dist/
+.build/
+coverage/
+
+# Prisma generated files (handled in Dockerfile via yarn prisma generate)
+prisma/dev.db
+generated/
+*.sqlite
+
+# VCS and editor metadata
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Logs & temp files
+*.log
+*.tmp
+*.swp
+.DS_Store
+.env
+.env.*
+
+# Misc
+docker-compose.yml
+README.md
+*.tar
