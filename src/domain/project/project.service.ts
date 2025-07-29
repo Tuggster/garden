@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { randomUUID } from 'crypto';
 import { ApiKeyService } from '../api-key/api-key.service';
-import { api_key_level } from 'generated/prisma';
+import { api_key_level } from '@prisma/client';
 
 @Injectable()
 export class ProjectService {

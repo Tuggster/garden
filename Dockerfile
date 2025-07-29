@@ -8,7 +8,12 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Copy remaining source code
-COPY . .
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+COPY prisma ./prisma
+COPY src ./src
+COPY tsconfig*.json ./
 
 # Generate Prisma client (safe in builder)
 RUN yarn prisma generate

@@ -1,4 +1,4 @@
-import { api_key_level } from 'generated/prisma';
+import { api_key_level } from '@prisma/client';
 
 export type CreateApiKeyPayload = {
   projectId: string;

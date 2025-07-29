@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ApiKeyLevelMap, CreateApiKeyPayload } from './types';
 import { PrismaService } from '../prisma/prisma.service';
-import { api_key_level } from 'generated/prisma';
 
 @Injectable()
 export class ApiKeyService {

@@ -7,7 +7,7 @@ import {
 } from './types';
 import { getApiKey } from '../utils/getApiKey';
 import { ApiKeyService } from '../api-key/api-key.service';
-import { api_key_level } from 'generated/prisma';
+import { api_key_level } from '@prisma/client';
 
 @Controller('sensor')
 export class SensorController {

@@ -2,7 +2,7 @@ import { Controller, Get, Inject, Post, Query, Req } from '@nestjs/common';
 import { DeviceService } from './device.service';
 import { ApiKeyService } from '../api-key/api-key.service';
 import { getApiKey } from '../utils/getApiKey';
-import { api_key_level } from 'generated/prisma';
+import { api_key_level } from '@prisma/client';
 
 @Controller('device')
 export class DeviceController {
