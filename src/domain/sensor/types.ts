@@ -17,3 +17,11 @@ export const RegisterSensorReadingSchema = z.object({
 export type RegisterSensorReadingPayload = z.infer<
   typeof RegisterSensorReadingSchema
 >;
+
+export const GetSensorReadingsPayloadSchema = z.object({
+  sensorId: z.string(),
+});
+
+export type GetSensorReadingsPayload = z.infer<
+  typeof GetSensorReadingsPayloadSchema
+>;

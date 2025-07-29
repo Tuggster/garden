@@ -45,6 +45,14 @@ export class SensorService {
     });
   }
 
+  public async getReadingsForSensor(sensorId: string) {
+    return this.prismaService.reading.findMany({
+      where: {
+        sensorId,
+      },
+    });
+  }
+
   public async addSensorReading(payload: AddSensorReadingArgs) {
     console.log(payload);
 

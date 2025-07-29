@@ -1,7 +1,7 @@
-import { Controller, Inject, Post, Req } from '@nestjs/common';
+import { Controller, Get, Inject, Post, Query, Req } from '@nestjs/common';
 import { SensorService } from './sensor.service';
 import {
-  RegisterSensorPayload,
+  GetSensorReadingsPayloadSchema,
   RegisterSensorPayloadSchema,
   RegisterSensorReadingSchema,
 } from './types';
@@ -33,6 +33,30 @@ export class SensorController {
       ...payload,
       projectId,
     });
+  }
+
+  @Get('readings')
+  public async getSensorReadings(
+    @Req() req,
+    @Query() query: Record<string, string>,
+  ) {
+    const apiKey = getApiKey(req);
+    const payload = GetSensorReadingsPayloadSchema.parse(query);
+    const sensor = await this.sensorService.getSensorById(payload.sensorId);
+    const sensorProjectId = sensor.parentDevice.projectId;
+
+    const { permissions, projectId: keyProjectId } =
+      await this.apiKeyService.getKeyPermissions(apiKey);
+
+    if (sensorProjectId !== keyProjectId) {
+      throw new Error('API Key not valid for this sensors project');
+    }
+
+    if (!permissions.includes(api_key_level.READ)) {
+      throw new Error('No read permissions');
+    }
+
+    return this.sensorService.getReadingsForSensor(sensor.id);
   }
 
   @Post('addReading')
