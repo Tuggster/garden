@@ -9,6 +9,17 @@ export class DeviceService {
     private readonly prismaService: PrismaService,
   ) {}
 
+  public async getDevicesForProject(projectId: string) {
+    return this.prismaService.device.findMany({
+      where: {
+        projectId,
+      },
+      include: {
+        sensors: true,
+      },
+    });
+  }
+
   public async createDevice(
     payload: CreateDevicePayload,
     sensorIds?: string[],
