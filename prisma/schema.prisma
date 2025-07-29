@@ -57,8 +57,8 @@ model sensor {
   readingSchemaUrl String
 
   id            String @id @unique @default(uuid()) @db.Uuid
-  info          Json
-  infoSchemaUrl String
+  info          Json?
+  infoSchemaUrl String?
 
   @@index([parentDeviceId])
 }

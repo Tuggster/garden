@@ -10,21 +10,14 @@ export class ApiKeyService {
     private readonly prismaService: PrismaService,
   ) {}
 
-  public async getKeyPermissions(
-    id: string,
-    projectId: string,
-  ): Promise<api_key_level[]> {
+  public async getKeyPermissions(id: string) {
     const apiKey = await this.prismaService.api_key.findFirstOrThrow({
       where: {
         id,
       },
     });
 
-    if (apiKey.projectId !== projectId) {
-      throw new Error('Key invalid for given project.');
-    }
-
-    return apiKey.permissions;
+    return { permissions: apiKey.permissions, projectId: apiKey.projectId };
   }
 
   public createApiKey(payload: CreateApiKeyPayload) {

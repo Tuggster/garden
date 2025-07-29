@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "sensor" ALTER COLUMN "info" DROP NOT NULL,
+ALTER COLUMN "infoSchemaUrl" DROP NOT NULL;

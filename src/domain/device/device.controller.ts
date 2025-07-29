@@ -16,16 +16,10 @@ export class DeviceController {
   @Post('/create')
   public async createDevice(@Req() request) {
     const apiKey = getApiKey(request);
-    const { projectId, sensors } = request.body;
+    const { sensors } = request.body;
 
-    if (!projectId) {
-      throw new Error('Invalid input');
-    }
-
-    const permissions = await this.apiKeyService.getKeyPermissions(
-      apiKey,
-      projectId,
-    );
+    const { permissions, projectId } =
+      await this.apiKeyService.getKeyPermissions(apiKey);
 
     if (!permissions.includes(api_key_level.MANAGE)) {
       throw new Error('Not authorized to create device on this project.');
