@@ -3,7 +3,7 @@ name: Deploy to AWS ECR
 on:
   push:
     branches:
-      - deploy  # adjust as needed
+      - deploy # adjust as needed
 
 env:
   AWS_REGION: us-east-2
@@ -42,3 +42,12 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
+
+                - name: Run Prisma migrations
+
+      - name: Run Prisma migrations
+        run: |
+          docker run --rm \
+            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} \
+            npx prisma migrate deploy
